@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhytoFacts Dashboard</title>
+    <style>
+        body { background: #090d16; color: #e2e8f0; font-family: sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 95vh; justify-content: center; }
+        .box { max-width: 650px; w-full mx-auto; background: #111827; border: 1px solid #1f2937; border-radius: 12px; margin-bottom: 20px; overflow: hidden; width: 100%; }
+        .bar { background: #030712; padding: 12px 20px; border-bottom: 1px solid #1f2937; display: flex; justify-content: space-between; align-items: center; }
+        .title { color: #10b981; font-size: 13px; text-transform: uppercase; font-family: monospace; font-weight: bold; margin: 0; }
+        .badge { font-size: 9px; font-family: monospace; background: rgba(6,78,59,0.5); color: #34d399; padding: 3px 6px; border-radius: 4px; border: 1px solid rgba(4,120,87,0.6); }
+        .pad { padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .btn { padding: 10px; font-size: 13px; font-weight: bold; cursor: pointer; border-radius: 8px; transition: 0.2s; text-align: center; }
+        .btn-active { border: 1px solid rgba(16,185,129,0.3); background: rgba(6,78,59,0.2); color: #34d399; }
+        .btn-inactive { border: 1px solid #1f2937; background: #030712; color: #9ca3af; }
+        .panel { background: #030712; padding: 16px; border-radius: 8px; border: 1px solid #1f2937; }
+        .head { border-bottom: 1px solid #1f2937; padding-bottom: 10px; margin-bottom: 12px; }
+        .name { font-size: 16px; font-weight: bold; margin: 0; }
+        .tax { font-size: 11px; font-family: monospace; color: #10b981; margin: 4px 0 0 0; }
+        .lbl { font-size: 9px; font-weight: bold; text-transform: uppercase; color: #6b7280; margin-bottom: 2px; }
+        .val { font-size: 13px; color: #e5e7eb; font-weight: bold; margin: 0 0 12px 0; }
+        .desc { background: rgba(17,24,39,0.5); padding: 10px; border-radius: 6px; font-size: 12px; color: #d1d5db; line-height: 1.4; margin: 0; border: 1px solid #1f2937; }
+        .table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
+        .table th { background: #030712; color: #10b981; font-family: monospace; font-size: 10px; padding: 10px; border-bottom: 1px solid #1f2937; text-transform: uppercase; }
+        .table td { padding: 10px; border-bottom: 1px solid #1f2937; color: #d1d5db; vertical-align: top; }
+        .m-lbl { font-family: monospace; color: #9ca3af; font-weight: bold; background: #030712; width: 20%; text-transform: uppercase; font-size: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <div class="bar"><h1 class="title">Project PhytoFacts</h1><div class="badge">Offline-Ready</div></div>
+        <div class="pad">
+            <div class="grid">
+                <button id="btn-curry" onclick="swap('curry')" class="btn btn-active">Curry Patta</button>
+                <button id="btn-banana" onclick="swap('banana')" class="btn btn-inactive">Banana Leaf</button>
+                <button id="btn-mint" onclick="swap('mint')" class="btn btn-inactive">Mint Leaf</button>
+            </div>
+            <div class="panel">
+                <div class="head"><h2 id="t" class="name">Curry Patta Overview</h2><p id="x" class="tax">Taxonomy: Murraya koenigii (Family: Rutaceae)</p></div>
+                <div class="lbl">Active Compound</div><p id="c" class="val">Carbazole Alkaloids (Mahanimbine)</p>
+                <div class="lbl">Observed Biological Action</div><p id="b" class="desc">Assists with blood glucose management. Compounds help regulate carbohydrate absorption pathways post-digestion.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="bar"><h1 class="title">Comparative Analysis Matrix</h1></div>
+        <table class="table">
+            <thead><tr><th class="m-lbl">Metric</th><th>Curry Patta</th><th>Banana Leaf</th><th>Mint Leaf</th></tr></thead>
+            <tbody>
+                <tr><td class="m-lbl">Utility</td><td>Internal culinary spice context.</td><td>External wrapper/cooking vessel.</td><td>Volatile medicinal essential oil.</td></tr>
+                <tr><td class="m-lbl">Family</td><td>Rutaceae (Citrus variant)</td><td>Musaceae (Herbaceous monocot)</td><td>Lamiaceae (Aromatic mint)</td></tr>
+                <tr><td class="m-lbl">Primary Effect</td><td>Metabolic structural balance.</td><td>Thermal polyphenol transmission.</td><td>Intestinal smooth muscle relief.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const vault = {
+            curry: { t: "Curry Patta Overview", x: "Taxonomy: Murraya koenigii (Family: Rutaceae)", c: "Carbazole Alkaloids (Mahanimbine)", b: "Assists with blood glucose management. Compounds help regulate carbohydrate absorption pathways post-digestion." },
+            banana: { t: "Banana Leaf Overview", x: "Taxonomy: Musa acuminata (Family: Musaceae)", c: "Polyphenols (Epigallocatechin Gallate)", b: "Serves as an antioxidant shield. High heat releases tea-like antioxidants into food when used for steaming or wrapping." },
+            mint: { t: "Mint Leaf Overview", x: "Taxonomy: Mentha piperita (Family: Lamiaceae)", c: "Monoterpenes (L-Menthol)", b: "Acts as a natural antispasmodic. Relaxes smooth muscles in the gastrointestinal system to aid regular digestion." }
+        };
+        function swap(k) {
+            document.getElementById('t').innerText = vault[k].t;
+            document.getElementById('x').innerText = vault[k].x;
+            document.getElementById('c').innerText = vault[k].c;
+            document.getElementById('b').innerText = vault[k].b;
+            ['curry', 'banana', 'mint'].forEach(id => {
+                document.getElementById(`btn-${id}`).className = `btn btn-${id === k ? 'active' : 'inactive'}`;
+            });
+        }
+    </script>
+</body>
+</html>
